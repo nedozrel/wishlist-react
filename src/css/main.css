@@ -1,0 +1,28 @@
+* {
+    box-sizing: border-box;
+}
+
+.wishlist__list {
+    margin: 50px 50px 0 0;
+}
+
+.wishlist__add-wish-cnt {
+    display: flex;
+}
+
+.wishlist__input-cnt {
+
+}
+
+.wishlist-item {
+    display: flex;
+}
+
+.wishlist-item:not(:last-child) {
+    margin: 0 0 15px 0;
+}
+
+.wishlist-item__text {
+    flex: 1 1 auto;
+}
+
