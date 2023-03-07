@@ -1,15 +1,16 @@
 import {useState} from "react";
 import {Dropdown} from "./Dropdown";
 
+const PRIORITY_OPTIONS = [
+  {id: 1, label: "Средний", value: 2},
+  {id: 2, label: "Высокий", value: 3},
+  {id: 3, label: "Низкий", value: 1},
+]
+
 export function AddWish({wishes, setWishes}) {
   const [newWishText, setNewWishText] = useState("")
-  const priorityOptions = [
-    {label: "Средний", value: 2},
-    {label: "Высокий", value: 3},
-    {label: "Низкий", value: 1},
-  ]
 
-  const [currentPriority, setCurrentPriority] = useState(priorityOptions[0])
+  const [currentPriority, setCurrentPriority] = useState(PRIORITY_OPTIONS[0])
 
   const addWish = () => {
     if (!newWishText.trim()) return
@@ -21,7 +22,7 @@ export function AddWish({wishes, setWishes}) {
       priority: currentPriority,
     }
     setWishes([newWish, ...wishes])
-    setCurrentPriority(priorityOptions[0])
+    setCurrentPriority(PRIORITY_OPTIONS[0])
     setNewWishText("")
   }
 
@@ -39,7 +40,7 @@ export function AddWish({wishes, setWishes}) {
              onKeyDown={handleKeyDown}
              value={newWishText}
              onChange={e => setNewWishText(e.target.value)}/>
-      <Dropdown options={priorityOptions}
+      <Dropdown options={PRIORITY_OPTIONS}
                 selected={currentPriority}
                 setSelected={setCurrentPriority}/>
     </div>

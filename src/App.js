@@ -1,60 +1,61 @@
 import './css/main.css';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Dropdown} from "./components/Dropdown";
 import {WishList} from "./components/WishList";
 
+const BY_TIME = "byTime"
+const BY_PRIORITY = "byPriority"
+const BY_NAME = "byName"
+
+const SORTING_OPTIONS = [
+  {id: 1, label: "Времени добавления", value: BY_TIME, reversed: false},
+  {id: 2, label: "Времени добавления", value: BY_TIME, reversed: true},
+  {id: 3, label: "Приоритету", value: BY_PRIORITY, reversed: false},
+  {id: 4, label: "Приоритету", value: BY_PRIORITY, reversed: true},
+  {id: 5, label: "Названию", value: BY_NAME, reversed: false},
+  {id: 6, label: "Названию", value: BY_NAME, reversed: true},
+]
 
 function App() {
-
-  const sortingOptions = [
-    {label: "Времени добавления", value: "byTime"},
-    {label: "Времени добавления", value: "byTimeReversed"},
-    {label: "Приоритету", value: "byPriority"},
-    {label: "Приоритету", value: "byPriorityReversed"},
-    {label: "Названию", value: "byName"},
-    {label: "Названию", value: "byNameReversed"},
-  ]
-  const [currentSortingOption, setCurrentSortingOption] = useState(sortingOptions[0])
-
+  const [currentSortingOption, setCurrentSortingOption] = useState(SORTING_OPTIONS[0])
   const [wishes, setWishes] = useState([])
 
-  const sortWishes = (sortingOption) => {
-    /*
-    .slice() чтобы создать копию массива и не менять исходный
+  useEffect(() => { // Сортировка wishes
+    if (!wishes.length) return
 
-    allEqual нужен чтобы при сортировке в обратном порядке,
-    если все элементы одинаковы, массив не сортировался и его не разворачивало
-    */
+    setWishes((prev) => {
+      let wishesSorted = prev.slice()
 
-    let wishesSorted = wishes.slice()
+      if (wishesSorted.length < 1) return prev
 
-    if (wishesSorted.length < 1) return
-    if (sortingOption.value.includes("byName")) {
-      const allEqual = wishesSorted.every((val, i, arr) => val.text === arr[0].text)
-      if (allEqual) return
-      wishesSorted = wishesSorted.sort((a, b) => a.text.localeCompare(b.text))
-    } else if (sortingOption.value.includes("byTime")) {
-      const allEqual = wishesSorted.every((val, i, arr) => val.time === arr[0].time)
-      if (allEqual) return
-      wishesSorted = wishesSorted.sort((a, b) => a.time - b.time)
-    } else if (sortingOption.value.includes("byPriority")) {
-      const allEqual = wishesSorted.every((val, i, arr) => val.priority.value === arr[0].priority.value)
-      if (allEqual) return
-      wishesSorted = wishesSorted.sort((a, b) => a.priority.value - b.priority.value)
-    }
-    if (sortingOption.value.includes("Reversed")) {
-      wishesSorted = wishesSorted.reverse()
-    }
-
-    setWishes([...wishesSorted])
-  }
+      if (currentSortingOption.value === BY_NAME) {
+        wishesSorted = wishesSorted.sort(
+          (a, b) => currentSortingOption.reversed ?
+            b.text.localeCompare(a.text):
+            a.text.localeCompare(b.text)
+        )
+      } else if (currentSortingOption.value === BY_TIME) {
+        wishesSorted = wishesSorted.sort(
+          (a, b) => currentSortingOption.reversed ?
+            b.time - a.time:
+            a.time - b.time)
+      } else if (currentSortingOption.value === BY_PRIORITY) {
+        wishesSorted = wishesSorted.sort(
+          (a, b) => currentSortingOption.reversed ?
+            b.priority.value - a.priority.value:
+            a.priority.value - b.priority.value
+        )
+      }
+      return wishesSorted
+    })
+  }, [currentSortingOption, wishes.length])
 
   return (
     <div className="App">
-      <Dropdown options={sortingOptions}
+      <Dropdown options={SORTING_OPTIONS}
                 selected={currentSortingOption}
                 setSelected={setCurrentSortingOption}
-                sort={sortWishes}/>
+                isSorting={true}/>
       <WishList wishes={wishes} setWishes={setWishes}/>
     </div>
   )

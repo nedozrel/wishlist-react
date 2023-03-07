@@ -16,13 +16,13 @@ export function Wish(props) {
         <input className="wishlist-item__text-edit"
                value={newText}
                onChange={e => setNewText(e.target.value)}
-               onBlur={e => props.editWish(data, newText)}
+               onBlur={() => props.editWish(data, newText)}
                onKeyDown={handleKeyDown}></input>
         Приоритет: {data.priority.label}
       </div>
       <button
         className="btn btn_delete wishlist-item__button"
-        onClick={(e) => {
+        onClick={() => {
           props.removeWish(data.id)
         }}>x
       </button>

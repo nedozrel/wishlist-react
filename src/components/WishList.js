@@ -5,7 +5,8 @@ import {AddWish} from "./AddWish";
 export function WishList({wishes, setWishes}) {
 
   const removeWish = (id) => {
-    setWishes(wishes.filter(e => e.id !== id))
+    // setWishes(wishes.filter(e => e.id !== id))
+    setWishes((prev) => prev.filter(e => e.id !== id)) // best practice
   }
 
   const editWish = (wish, newText) => {

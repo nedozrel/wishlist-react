@@ -3,70 +3,42 @@ import {useState} from "react";
 import {ImArrowDown2, ImArrowUp2} from "react-icons/im";
 import '../css/Dropdown.css'
 
-function Arrows({isSorting, isSortingReversed, isBold = false}) {
-  if (!isSorting) return
-
-  if (isSortingReversed) {
-    if (isBold)
-      return <ImArrowUp2 className="arrow dropdown__arrow"/>
-    else
-      return <AiOutlineArrowUp className="arrow dropdown__arrow"/>
-  } else {
-    if (isBold)
-      return <ImArrowDown2 className="arrow dropdown__arrow"/>
-    else
-      return <AiOutlineArrowDown className="arrow dropdown__arrow"/>
-  }
-}
-
-function DropdownItem({option, setIsActive, setSelected, sort}) {
-  const isSorting = sort !== undefined
-  let isSortingReversed
-  if (isSorting) {
-    isSortingReversed = option.value.includes("Reversed")
-  } else {
-    isSortingReversed = false
-  }
-
+function DropdownItem({option, setIsActive, setSelected, isSorting}) {
   return (
     <div
       className="dropdown__item"
-      onClick={e => {
+      onClick={() => {
         setIsActive(false);
         setSelected(option);
-        isSorting && sort(option);
       }}>
       {option.label}
-      <Arrows isSorting={isSorting} isSortingReversed={isSortingReversed}/>
+
+      {isSorting && (option.reversed ? (
+        <AiOutlineArrowUp className="arrow dropdown__arrow"/>
+      ) : (
+        <AiOutlineArrowDown className="arrow dropdown__arrow"/>
+      ))}
     </div>)
 }
 
-export function Dropdown({options, sort, selected, setSelected}) {
+export function Dropdown({options, selected, setSelected, isSorting = false}) {
   /*
-  Работает как обычный дропдаун если не передать функцию сортировки .
-
-  При передаче функции сортировки значения элементов дропдауна используются
-  в переданной функции сортировки для сортировки App.wishes .
+    isSorting - добавляет элементам dropdown стрелочки, у options должен быть ключ reversed,
+    который указывает в какую сторону смотрит стрелочка.
   */
 
   const [isActive, setIsActive] = useState(false)
 
-  const isSorting = sort !== undefined
-  let isSortingReversed
-  if (isSorting) {
-    isSortingReversed = selected.value.includes("Reversed")
-  } else {
-    isSortingReversed = false
-  }
-
   return (
-    <div className="dropdown" tabIndex="0" onBlur={e => setIsActive(false)}>
-      <div className="dropdown__btn" onClick={e => setIsActive(!isActive)}>
+    <div className="dropdown" tabIndex="0" onBlur={() => setIsActive(false)}>
+      <div className="dropdown__btn" onClick={() => setIsActive(!isActive)}>
         <div className="dropdown__btn-text">
           {selected.label}
-          <Arrows isSorting={isSorting}
-                  isSortingReversed={isSortingReversed}
-                  isBold={true}/>
+          {isSorting && (selected.reversed ? (
+            <ImArrowUp2 className="arrow dropdown__arrow"/>
+          ) : (
+            <ImArrowDown2 className="arrow dropdown__arrow"/>
+          ))}
         </div>
         <AiFillCaretDown/>
       </div>
@@ -74,12 +46,12 @@ export function Dropdown({options, sort, selected, setSelected}) {
       <div className={`dropdown__content ${isActive ? "dropdown__content_active" : ""}`}>
         {options.map(option =>
           <DropdownItem
-            key={option.value}
+            key={option.id}
             option={option}
             setIsActive={setIsActive}
             setSelected={setSelected}
             selected={selected}
-            sort={sort}/>)}
+            isSorting={isSorting}/>)}
       </div>
     </div>
   )
