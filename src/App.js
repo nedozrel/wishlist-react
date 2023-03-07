@@ -1,20 +1,8 @@
-import './css/main.css';
 import {useEffect, useState} from "react";
 import {Dropdown} from "./components/Dropdown";
 import {WishList} from "./components/WishList";
-
-const BY_TIME = "byTime"
-const BY_PRIORITY = "byPriority"
-const BY_NAME = "byName"
-
-const SORTING_OPTIONS = [
-  {id: 1, label: "Времени добавления", value: BY_TIME, reversed: false},
-  {id: 2, label: "Времени добавления", value: BY_TIME, reversed: true},
-  {id: 3, label: "Приоритету", value: BY_PRIORITY, reversed: false},
-  {id: 4, label: "Приоритету", value: BY_PRIORITY, reversed: true},
-  {id: 5, label: "Названию", value: BY_NAME, reversed: false},
-  {id: 6, label: "Названию", value: BY_NAME, reversed: true},
-]
+import {BY_TIME, BY_PRIORITY, BY_NAME, SORTING_OPTIONS} from "./utils/constants";
+import './css/main.css';
 
 function App() {
   const [currentSortingOption, setCurrentSortingOption] = useState(SORTING_OPTIONS[0])
@@ -48,7 +36,7 @@ function App() {
       }
       return wishesSorted
     })
-  }, [currentSortingOption, wishes.length])
+  }, [currentSortingOption, wishes.length, setWishes])
 
   return (
     <div className="App">

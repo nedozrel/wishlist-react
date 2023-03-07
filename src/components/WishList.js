@@ -1,7 +1,6 @@
 import {Wish} from "./Wish";
 import {AddWish} from "./AddWish";
 
-
 export function WishList({wishes, setWishes}) {
 
   const removeWish = (id) => {
@@ -9,15 +8,16 @@ export function WishList({wishes, setWishes}) {
     setWishes((prev) => prev.filter(e => e.id !== id)) // best practice
   }
 
-  const editWish = (wish, newText) => {
+  const editWish = (wish, newText, newPriority) => {
     if (!newText.trim()) return
-    if (wish.text.trim() === newText.trim()) return
+    if (wish.text.trim() === newText.trim() &&
+      wish.priority.id === newPriority.id) return
 
     const wishEdited = {
       id: wish.id,
       text: newText,
       time: wish.time,
-      priority: wish.priority,
+      priority: newPriority,
     }
 
     const wishesNew = wishes.slice()

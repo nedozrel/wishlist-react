@@ -25,6 +25,7 @@
 
 .dropdown__content {
     position: absolute;
+    z-index: 1;
     top: 110%;
     left: 0;
     background: white;
