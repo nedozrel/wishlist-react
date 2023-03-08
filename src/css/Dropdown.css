@@ -1,17 +1,81 @@
+.dropdown-cnt {
+    max-width: 590px;
+    margin: 0 auto 20px auto;
+}
+
 .dropdown {
     position: relative;
+    min-width: 180px;
+}
+
+.dropdown_sorting {
+    position: relative;
     width: 250px;
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.07);
+}
+
+.dropdown_sorting .dropdown__btn-text {
+    font-weight: bold;
+}
+
+.dropdown_rounded {
+    border-radius: 29px;
+    width: 100%;
+    margin: 0;
+}
+
+.dropdown_rounded .dropdown__btn {
+    padding: 4px 0;
+    border-radius: 11px;
+    text-align: center;
+    color: #777777;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.dropdown_rounded .dropdown__content {
+    box-shadow: none;
+    background-color: transparent;
+    padding: 0;
+    top: 150%;
+    opacity: 0;
+    transition: 0.3s ease;
+}
+
+.dropdown_rounded .dropdown__content_active {
+    opacity: 1;
+}
+
+
+.dropdown_rounded .dropdown__item {
+    display: block;
+    background-color: #fff;
+    border-radius: 11px;
+    padding: 4px 0;
+    text-align: center;
+    color: #777777;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.06);
+}
+
+.dropdown_rounded .dropdown__item:not(:last-child) {
+    margin: 0 0 10px 0;
+}
+
+.dropdown_outlined {
+    border: 1px solid #8D8D8D;
+    min-width: 150px;
+}
+
+.dropdown_outlined .dropdown__item {
+    display: block;
+    text-align: center;
 }
 
 .dropdown__btn {
     padding: 10px;
     background: white;
-    box-shadow: 3px 3px 10px 6px rgba(0, 0, 0, 0.06);
-    font-weight: bold;
     color: #333333;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    text-align: center;
 }
 
 .dropdown__btn:hover {
@@ -19,7 +83,6 @@
 }
 
 .dropdown__btn-text {
-    display: flex;
     align-items: center;
 }
 
@@ -29,20 +92,19 @@
     top: 110%;
     left: 0;
     background: white;
-    font-weight: 500;
+    font-weight: 400;
     color: #333333;
     width: 100%;
     max-height: 0;
     overflow: hidden;
-    padding: 0 15px 0 15px;
+    padding: 0 10px 0 10px;
     transition: 0.3s ease;
 }
 
 .dropdown__content_active {
     max-height: 500px;
-    padding: 15px;
+    padding: 10px;
     box-shadow: 3px 3px 10px 6px rgba(0, 0, 0, 0.06);
-    transition: 0.5s ease;
 }
 
 .dropdown__item {
@@ -50,7 +112,7 @@
     align-items: center;
     padding: 10px;
     cursor: pointer;
-    transition: ease 0.2s;
+
 }
 
 .dropdown__item:hover {

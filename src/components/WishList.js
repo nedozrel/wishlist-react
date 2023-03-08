@@ -1,5 +1,5 @@
 import {Wish} from "./Wish";
-import {AddWish} from "./AddWish";
+import "../css/Wishlist.css"
 
 export function WishList({wishes, setWishes}) {
 
@@ -29,7 +29,6 @@ export function WishList({wishes, setWishes}) {
 
   return (
     <div className="wishlist">
-      <AddWish wishes={wishes} setWishes={setWishes}/>
       <ul className="wishlist__list">
         {wishes.map((el) => {
           return <Wish data={el}

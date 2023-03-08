@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {AiFillCaretDown, AiOutlineArrowDown, AiOutlineArrowUp} from "react-icons/ai";
+import {AiOutlineArrowDown, AiOutlineArrowUp} from "react-icons/ai";
 import {ImArrowDown2, ImArrowUp2} from "react-icons/im";
 import '../css/Dropdown.css'
 
@@ -21,16 +21,17 @@ function DropdownItem({option, setIsActive, setSelected, isSorting}) {
     </div>)
 }
 
-export function Dropdown({options, selected, setSelected, isSorting = false}) {
+export function Dropdown({options, selected, setSelected, className, isSorting = false}) {
   /*
     isSorting - добавляет элементам dropdown стрелочки, у options должен быть ключ reversed,
     который указывает в какую сторону смотрит стрелочка.
   */
+  if (!className) className = ""
 
   const [isActive, setIsActive] = useState(false)
 
   return (
-    <div className="dropdown" tabIndex="0" onBlur={() => setIsActive(false)}>
+    <div className={`dropdown ${className}`} tabIndex="0" onBlur={() => setIsActive(false)}>
       <div className="dropdown__btn" onClick={() => setIsActive(!isActive)}>
         <div className="dropdown__btn-text">
           {selected.label}
@@ -40,7 +41,6 @@ export function Dropdown({options, selected, setSelected, isSorting = false}) {
             <ImArrowDown2 className="arrow dropdown__arrow"/>
           ))}
         </div>
-        <AiFillCaretDown/>
       </div>
 
       <div className={`dropdown__content ${isActive ? "dropdown__content_active" : ""}`}>

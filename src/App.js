@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {Dropdown} from "./components/Dropdown";
 import {WishList} from "./components/WishList";
+import {AddWish} from "./components/AddWish";
 import {BY_TIME, BY_PRIORITY, BY_NAME, SORTING_OPTIONS} from "./utils/constants";
 import './css/main.css';
 
@@ -46,10 +47,19 @@ function App() {
 
   return (
     <div className="App">
-      <Dropdown options={SORTING_OPTIONS}
-                selected={currentSortingOption}
-                setSelected={setCurrentSortingOption}
-                isSorting={true}/>
+      <div className="add-wish-form-cnt">
+        <AddWish wishes={wishes} setWishes={setWishes}/>
+      </div>
+      <div className="dropdown-cnt">
+        {/*<div className="dropdown-label">*/}
+        {/*  Сортировать по:*/}
+        {/*</div>*/}
+        <Dropdown className="dropdown_sorting"
+                  options={SORTING_OPTIONS}
+                  selected={currentSortingOption}
+                  setSelected={setCurrentSortingOption}
+                  isSorting={true}/>
+      </div>
       <WishList wishes={wishes} setWishes={setWishes}/>
     </div>
   )

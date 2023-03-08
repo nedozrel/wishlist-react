@@ -1,6 +1,7 @@
 import {useState} from "react";
 import {Dropdown} from "./Dropdown";
 import {PRIORITY_OPTIONS} from "../utils/constants";
+import {MdDeleteOutline} from "react-icons/md";
 
 export function Wish({data, editWish, removeWish}) {
   const [newText, setNewText] = useState(data.text)
@@ -18,21 +19,22 @@ export function Wish({data, editWish, removeWish}) {
   return (
     <li className="wishlist-item wishlist__item">
       <div className="wishlist-item__text">
-        <input className="wishlist-item__text-edit"
-               value={newText}
-               onChange={e => setNewText(e.target.value)}
-               onBlur={() => editWish(data, newText, priority)}
-               onKeyDown={handleKeyDown}></input>
+        <div className="wishlist-item__text-edit"
+             contentEditable
+             onChange={e => setNewText(e.target.value)}
+             onBlur={() => editWish(data, newText, priority)}
+             onKeyDown={handleKeyDown}>{newText}</div>
       </div>
       <Dropdown
         options={PRIORITY_OPTIONS}
         selected={priority}
-        setSelected={handlePriorityChange}/>
+        setSelected={handlePriorityChange}
+        className="wishlist-item__dropdown dropdown_outlined"/>
       <button
         className="btn btn_delete wishlist-item__button"
         onClick={() => {
           removeWish(data.id)
-        }}>x
+        }}><MdDeleteOutline className="btn__icon"/>
       </button>
     </li>
   )

@@ -1,0 +1,29 @@
+.add-wish-form-cnt {
+    margin: 0 0 70px 0;
+}
+
+.add-wish-form {
+    display: flex;
+    margin: 0 auto;
+    max-width: 590px;
+    background-color: #ECECEC;
+    color: #777777;
+    padding: 6px 15px;
+    height: 37px;
+    border-radius: 29px;
+    align-items: center;
+}
+
+.add-wish-form__input-cnt {
+    flex: 1 1 66.66%;
+    margin-right: 10px;
+}
+
+.add-wish-form__input {
+    width: 100%;
+
+}
+
+.add-wish-form__dropdown-cnt {
+    flex: 1 1 33.33%;
+}
