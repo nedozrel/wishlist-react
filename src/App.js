@@ -51,9 +51,6 @@ function App() {
         <AddWish wishes={wishes} setWishes={setWishes}/>
       </div>
       <div className="dropdown-cnt">
-        {/*<div className="dropdown-label">*/}
-        {/*  Сортировать по:*/}
-        {/*</div>*/}
         <Dropdown className="dropdown_sorting"
                   options={SORTING_OPTIONS}
                   selected={currentSortingOption}
