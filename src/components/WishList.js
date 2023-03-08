@@ -9,8 +9,6 @@ export function WishList({wishes, setWishes}) {
   }
 
   const editWish = (wish, newText, newPriority) => {
-    console.log("editWish call")
-    console.log(newText, JSON.stringify(wish))
     if (!newText.trim()) return
     if (wish.text.trim() === newText.trim() &&
       wish.priority.id === newPriority.id) return
@@ -27,7 +25,6 @@ export function WishList({wishes, setWishes}) {
     wishesNew[wishIndex] = wishEdited
 
     setWishes([...wishesNew])
-    console.log("Wishes has been setted!!")
   }
 
   return (
