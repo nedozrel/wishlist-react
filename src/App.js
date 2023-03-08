@@ -6,7 +6,9 @@ import './css/main.css';
 
 function App() {
   const [currentSortingOption, setCurrentSortingOption] = useState(SORTING_OPTIONS[0])
-  const [wishes, setWishes] = useState([])
+  let storedWishes = JSON.parse(localStorage.getItem('wishes'))
+  if (!storedWishes) storedWishes = []
+  const [wishes, setWishes] = useState(storedWishes)
 
   useEffect(() => { // Сортировка wishes
     if (!wishes.length) return
@@ -19,24 +21,28 @@ function App() {
       if (currentSortingOption.value === BY_NAME) {
         wishesSorted = wishesSorted.sort(
           (a, b) => currentSortingOption.reversed ?
-            b.text.localeCompare(a.text):
+            b.text.localeCompare(a.text) :
             a.text.localeCompare(b.text)
         )
       } else if (currentSortingOption.value === BY_TIME) {
         wishesSorted = wishesSorted.sort(
           (a, b) => currentSortingOption.reversed ?
-            b.time - a.time:
+            b.time - a.time :
             a.time - b.time)
       } else if (currentSortingOption.value === BY_PRIORITY) {
         wishesSorted = wishesSorted.sort(
           (a, b) => currentSortingOption.reversed ?
-            b.priority.value - a.priority.value:
+            b.priority.value - a.priority.value :
             a.priority.value - b.priority.value
         )
       }
       return wishesSorted
     })
   }, [currentSortingOption, wishes.length, setWishes])
+
+  useEffect(() => {
+    localStorage.setItem('wishes', JSON.stringify(wishes))
+  }, [wishes])
 
   return (
     <div className="App">

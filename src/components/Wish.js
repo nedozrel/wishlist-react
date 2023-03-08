@@ -21,9 +21,8 @@ export function Wish({data, editWish, removeWish}) {
         <input className="wishlist-item__text-edit"
                value={newText}
                onChange={e => setNewText(e.target.value)}
-               onBlur={() => editWish(data, newText)}
+               onBlur={() => editWish(data, newText, priority)}
                onKeyDown={handleKeyDown}></input>
-        {data.priority.label}
       </div>
       <Dropdown
         options={PRIORITY_OPTIONS}
